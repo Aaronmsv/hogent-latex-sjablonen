@@ -21,6 +21,7 @@
 \usepackage[dutch]{babel}    % Taalinstellingen: woordsplitsingen,
                              %  commando's voor speciale karakters
                              %  ("dutch" voor NL)
+\usepackage{csquotes}
 \usepackage{eurosym}         % Euro-symbool €
 \usepackage{geometry}
 \usepackage{graphicx}        % Invoegen van tekeningen
@@ -30,7 +31,6 @@
 \usepackage{listings}        % Broncode mooi opmaken
 \usepackage{multirow}        % Tekst over verschillende cellen in tabellen
 \usepackage{rotating}        % Tabellen en figuren roteren
-\usepackage{natbib}          % Betere bibliografiestijlen
 \usepackage{fancyhdr}        % Pagina-opmaak met hoofd- en voettekst
 
 \usepackage[T1]{fontenc}     % Ivm lettertypes
@@ -38,6 +38,12 @@
 \usepackage{textcomp}
 
 \usepackage{lipsum}          % Voor vultekst (lorem ipsum)
+
+%%---------- Referenties ---------------------------------------
+
+\usepackage[backend=biber,style=apa]{biblatex}
+\DeclareLanguageMapping{dutch}{dutch-apa}
+\addbibresource{tin-bachproef.bib}
 
 %%---------- Layout ------------------------------------------------------
 
@@ -199,12 +205,14 @@
 \chapter{Inleiding}
 \label{ch:inleiding}
 
-De inleiding moet de lezer alle nodige informatie verschaffen om het onderwerp te begrijpen zonder nog externe werken te moeten raadplegen \citep{Pollefliet2011}. Dit is een doorlopende tekst die gebaseerd is op al wat je over het onderwerp gelezen hebt (literatuuronderzoek).
+De inleiding moet de lezer alle nodige informatie verschaffen om het onderwerp te begrijpen zonder nog externe werken te moeten raadplegen \cite{Pollefliet2011}. Dit is een doorlopende tekst die gebaseerd is op al wat je over het onderwerp gelezen hebt (literatuuronderzoek).
 
-Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz. naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${cite\{\}}} of \texttt{$\backslash${citep\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\TeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin, gebruik je \texttt{$\backslash${}cite\{\}}.
-Soms wil je de auteur niet expliciet vernoemen, dan gebruik je \texttt{$\backslash${}citep\{\}}. Hieronder een voorbeeld van elk.
+Je verwijst bij elke bewering die je doet, vakterm die je introduceert, enz. naar je bronnen. In \LaTeX{} kan dat met het commando \texttt{$\backslash${cite\{\}}} of \texttt{$\backslash${citep\{\}}}. Als argument van het commando geef je de ``sleutel'' van een ``record'' in een bibliografische databank in het Bib\TeX{}-formaat (een tekstbestand). Als je expliciet naar de auteur verwijst in de zin, gebruik je \texttt{$\backslash${}cite\{\}}, \texttt{$\backslash${}textcite\{\}} of \texttt{$\backslash${}cite*\{\}}.
+Soms wil je de auteur niet expliciet vernoemen, dan gebruik je \texttt{$\backslash${}parencite\{\}}. Hieronder een voorbeeld van elk.
 
-\cite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\citep{Creeger2009}.
+\textcite{Knuth1998} schreef een van de standaardwerken over sorteer- en zoekalgoritmen. Experten zijn het erover eens dat cloud computing een interessante opportuniteit vormen, zowel voor gebruikers als voor dienstverleners op vlak van informatietechnologie~\parencite{Creeger2009}. 
+
+Een webpagina kan ook op dezelfde manier gebruikt worden als bron \parencite{BranchingFactor}. Als je zoekt op \texttt{BibLatex} citation options kan je hier mee over vinden.
 
 \section{Probleemstelling en Onderzoeksvragen}
 \label{sec:onderzoeksvragen}
@@ -241,8 +249,13 @@ Soms wil je de auteur niet expliciet vernoemen, dan gebruik je \texttt{$\backsla
 \lipsum[76-80]
 
 
-\bibliographystyle{apa}
-\bibliography{tin-bachproef}
+% print bibliography
+\newpage
+\begingroup %optional layout settings, 	\printbibliography can be used on its own 
+	\setlength\bibhang{10pt} % indentation length
+	\setlength\bibitemsep{10pt} % space between references
+	\printbibliography
+\endgroup
 
 %%---------- Back matter -------------------------------------------------
 
