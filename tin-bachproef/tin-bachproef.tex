@@ -41,10 +41,24 @@
 
 %%---------- Layout ------------------------------------------------------
 
-% hoofdingen, enz.
+% Hoofding wisselend tussen hoofdstuk en titel
+% afhankelijk van even of oneven pagina
 \pagestyle{fancy}
-% enkel hoofdstuktitel in hoofding, geen sectietitel (vermijd overlap)
-\renewcommand{\sectionmark}[1]{}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\fancyhead[LO]{\leftmark}
+\fancyhead[RE]{\checkedrightmark}
+
+% Neem het hoofdstuk indien geen titels
+\makeatletter
+\newcommand{\checkedrightmark}{%
+	\begingroup\protected@edef\x{\rightmark}%
+	\ifx\x\@empty
+	\endgroup\leftmark
+	\else
+	\endgroup\rightmark
+	\fi}
+\makeatother
 
 % lijn, wordt gebruikt in titelpagina
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
